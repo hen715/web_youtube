@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 성공</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h3>YouTube</h3>
+        <div class="container">
+            <form action="/search" method="post">
+                <input type="hidden" name="u_id" th:value="${u_id}" />
+                <input type="hidden" name="nickName" th:value="${nickName}" />
+                <div class="form-group">
+                    <input type="text" id="search" name="search">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        </div>
+            </form>
+        <p>사용자 닉네임: <a th:text="${nickName}"/></p>
+        <a th:href="@{/updateMember(u_id=${u_id},nickName=${nickName})}">회원정보 수정<br></a>
+        <a th:href="@{/deleteMember(u_id=${u_id})}">회원 탈퇴<br></a>
+        <a th:href="@{/uploadVideo(u_id=${u_id},nickName=${nickName})}">동영상 업로드</a>
+        <p></p><button onclick="location.href='/'">로그아웃</button></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

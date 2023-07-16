@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>video</title>
+</head>
+<body>
+<div class="container">
+  <div>
+    <a th:href="@{/back(u_id=${u_id},nickName=${nickName})}">YouTube</a>
+    <p class="login-account">로그인된 계정: <span th:text="${nickName}"></span></p>
+    <form action="/search" method="post">
+      <input type="hidden" name="u_id" th:value="${u_id}" />
+      <input type="hidden" name="nickName" th:value="${nickName}" />
+      <div class="form-group">
+        <input type="text" id="search" name="search">
+        <button type="submit">검색</button>
+      </div>
+    </form>
+    <p class="video-title">제목 : <span th:text="${video?.title}"></span></p>
+    <p class="video-description">영상 설명 : <span th:text="${video?.description}"></span></p>
+    <p class="video-u_id">채널명 : <span th:text="${video?.nickName}"></span></p>
+    <p class="video-playlist">플레이리스트: <span th:text="${video?.playList}"></span></p>
+    <p class="video-category">카테고리: <span th:text="${video?.category}"></span></p>
+
+  </div>
+  <div th:if="${u_id != '비회원'}">
+    <a th:href="@{/newComment(u_id=${u_id},video_id=${video.id},nickName=${nickName})}">댓글달기</a>
+  </div>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>작성자</th>
+        <th>댓글</th>
+        <th>작성일</th>
+        <th>#</th>
+        <th>#</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="comment : ${comments}">
+        <td th:text="${comment.nickName}"></td>
+        <td th:text="${comment.reply}"></td>
+        <td th:text="${comment.date}"></td>
+        <td th:if="${u_id==comment.u_id}">
+          <a th:href="@{/updateComment(u_id=${u_id},video_id=${video.id},nickName=${nickName},id=${comment.id})}">댓글 수정</a>
+        </td>
+        <td th:if="${u_id==comment.u_id}">
+          <a th:href="@{/deleteComment(u_id=${u_id},video_id=${video.id},nickName=${nickName})}">댓글 삭제</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

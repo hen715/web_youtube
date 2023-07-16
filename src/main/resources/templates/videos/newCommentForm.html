@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>댓글 등록</title>
+</head>
+<body>
+<form action="/newComment" method="post">
+    <input type="hidden" name="u_id" th:value="${u_id}" />
+    <input type="hidden" name="video_id" th:value="${video_id}" />
+    <input type="hidden" name="nickName" th:value="${nickName}" />
+    <div class="form-group">
+        <label for="reply">내용</label>
+        <textarea id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+    </div>
+    <button type="submit">등록</button>
+</form>
+
+</body>
+</html>

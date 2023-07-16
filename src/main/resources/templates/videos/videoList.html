@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+  <a th:href="@{/back(u_id=${u_id},nickName=${nickName})}">YouTube</a>
+  <p class="login-account">로그인된 계정: <span th:text="${nickName}"></span></p>
+  <form action="/search" method="post">
+    <input type="hidden" name="u_id" th:value="${u_id}" />
+    <input type="hidden" name="nickName" th:value="${nickName}" />
+    <div class="form-group">
+      <input type="text" id="search" name="search">
+      <button type="submit">검색</button>
+    </div>
+  </form>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>채널이름</th>
+        <th>제목</th>
+        <th>설명</th>
+        <th>재생목록</th>
+        <th>카테고리</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="video : ${videos}">
+        <td th:text="${video.id}"></td>
+        <td th:text="${video.nickName}"></td>
+        <td th:text="${video.title}"></td>
+        <td th:text="${video.description}"></td>
+        <td th:text="${video.playList}"></td>
+        <td th:text="${video.category}"></td>
+        <td><a th:href="@{/show(video_id=${video.id},u_id=${u_id},nickName=${nickName})}">동영상 보기</a></td>
+        <td th:if="${u_id==video.u_id}">
+        <a th:href="@{/updateVideo(u_id=${u_id},video_id=${video.id},nickName=${nickName},search=${search})}">비디오 수정</a>
+        </td>
+        <td th:if="${u_id==video.u_id}">
+          <a th:href="@{/deleteVideo(u_id=${u_id},video_id=${video.id},nickName=${nickName},search=${search})}">비디오 삭제</a>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
